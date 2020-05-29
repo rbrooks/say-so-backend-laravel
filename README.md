@@ -75,12 +75,6 @@ If you need to whipe the data and start fresh:
 $ php artisan migrate:refresh
 ```
 
-## Routes
-
-```sh
-$ php artisan route:list
-```
-
 ## Dependencies
 
 - [jwt-auth](https://github.com/tymondesigns/jwt-auth) - Authentication using JSON Web Tokens
@@ -136,3 +130,36 @@ This applications has CORS enabled on all endpoints. The code whitelists request
 - https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
 - https://en.wikipedia.org/wiki/Cross-origin_resource_sharing
 - https://www.w3.org/TR/cors
+
+## Routes
+
+```sh
+$ php artisan route:list
+```
+
+```
++--------+-----------+-------------------------------------------+------------------+-----------------------------------------------------+-----------------------+
+| Domain | Method    | URI                                       | Name             | Action                                              | Middleware            |
++--------+-----------+-------------------------------------------+------------------+-----------------------------------------------------+-----------------------+
+|        | GET|HEAD  | /                                         |                  | Closure                                             | web                   |
+|        | POST      | api/articles                              | articles.store   | App\Http\Controllers\Api\ArticleController@store    | api,auth.api          |
+|        | GET|HEAD  | api/articles                              | articles.index   | App\Http\Controllers\Api\ArticleController@index    | api,auth.api:optional |
+|        | GET|HEAD  | api/articles/feed                         |                  | App\Http\Controllers\Api\FeedController@index       | api,auth.api          |
+|        | GET|HEAD  | api/articles/{article}                    | articles.show    | App\Http\Controllers\Api\ArticleController@show     | api,auth.api:optional |
+|        | PUT|PATCH | api/articles/{article}                    | articles.update  | App\Http\Controllers\Api\ArticleController@update   | api,auth.api          |
+|        | DELETE    | api/articles/{article}                    | articles.destroy | App\Http\Controllers\Api\ArticleController@destroy  | api,auth.api          |
+|        | GET|HEAD  | api/articles/{article}/comments           | comments.index   | App\Http\Controllers\Api\CommentController@index    | api,auth.api:optional |
+|        | POST      | api/articles/{article}/comments           | comments.store   | App\Http\Controllers\Api\CommentController@store    | api,auth.api          |
+|        | DELETE    | api/articles/{article}/comments/{comment} | comments.destroy | App\Http\Controllers\Api\CommentController@destroy  | api,auth.api          |
+|        | POST      | api/articles/{article}/favorite           |                  | App\Http\Controllers\Api\FavoriteController@add     | api,auth.api          |
+|        | DELETE    | api/articles/{article}/favorite           |                  | App\Http\Controllers\Api\FavoriteController@remove  | api,auth.api          |
+|        | GET|HEAD  | api/profiles/{user}                       |                  | App\Http\Controllers\Api\ProfileController@show     | api,auth.api:optional |
+|        | POST      | api/profiles/{user}/follow                |                  | App\Http\Controllers\Api\ProfileController@follow   | api,auth.api          |
+|        | DELETE    | api/profiles/{user}/follow                |                  | App\Http\Controllers\Api\ProfileController@unFollow | api,auth.api          |
+|        | GET|HEAD  | api/tags                                  |                  | App\Http\Controllers\Api\TagController@index        | api                   |
+|        | PUT|PATCH | api/user                                  |                  | App\Http\Controllers\Api\UserController@update      | api,auth.api          |
+|        | GET|HEAD  | api/user                                  |                  | App\Http\Controllers\Api\UserController@index       | api,auth.api          |
+|        | POST      | api/users                                 |                  | App\Http\Controllers\Api\AuthController@register    | api                   |
+|        | POST      | api/users/login                           |                  | App\Http\Controllers\Api\AuthController@login       | api                   |
++--------+-----------+-------------------------------------------+------------------+-----------------------------------------------------+-----------------------+
+```
