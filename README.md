@@ -137,6 +137,8 @@ This applications has CORS enabled on all endpoints. The code whitelists request
 $ php artisan route:list
 ```
 
+**API Spec**
+
 ```
 +--------+-----------+-------------------------------------------+------------------+-----------------------------------------------------+-----------------------+
 | Domain | Method    | URI                                       | Name             | Action                                              | Middleware            |
